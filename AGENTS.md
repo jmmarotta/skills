@@ -12,10 +12,7 @@ small set of Python utilities in `skills/skill-creator/scripts/`.
 - There is no repo-wide lint or test runner configured.
 
 ### Validation (closest thing to tests)
-- Validate a single skill directory:
-  - `python3 skills/skill-creator/scripts/quick_validate.py <path/to/skill>`
-  - Example: `python3 skills/skill-creator/scripts/quick_validate.py skills/frontend-design`
-- Use this as the “single test” command for skill files.
+- No validation command is configured.
 
 ### Packaging
 - Package a skill to a `.skill` zip:
@@ -33,7 +30,6 @@ small set of Python utilities in `skills/skill-creator/scripts/`.
 
 ### Test suites
 - No test runner is configured.
-- Use `quick_validate.py` to sanity-check a specific skill.
 
 ## Repository Structure
 
