@@ -6,7 +6,7 @@ Personal collection of agent skills, templates, and helper scripts used to impro
 - `code-review`: Review code for correctness, design quality, and complexity.
 - `code-simplify`: Refactor recent changes for clarity and maintainability.
 - `frontend-design`: Build polished, production-grade UI components and layouts.
-- `repo-context`: Generate project context documents and templates.
+- `agent-protocol`: Manage .agentprotocol work items, templates, and scripts.
 - `skill-creator`: Create, validate, and package new skills.
 - `software-design`: Provide architecture and implementation planning guidance.
 
