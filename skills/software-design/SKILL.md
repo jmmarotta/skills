@@ -1,119 +1,121 @@
 ---
 name: software-design
-description: Proactive software design guidance for architecture, interfaces, and implementation planning. Use this skill when helping users make design decisions before or during implementation—planning features, designing APIs, structuring modules, or evaluating architectural approaches. Triggers on questions like "How should I design...", "What's the best approach to...", "Help me plan the architecture for...", or any request involving meaningful design choices beyond simple fixes.
+description: Proactive software design guidance for architecture, interfaces, and implementation planning. Use this skill when helping users make decisions before or during implementation: planning features, designing APIs, structuring modules, or evaluating architectural approaches.
 ---
 
 # Software Design
 
-Guide software design decisions to fight complexity before it exists. Complexity is the root cause of most software problems—it makes systems hard to understand and modify. Approach design as a collaborative partner helping users make decisions that will pay dividends over the lifetime of their code.
+Design to prevent complexity before it exists. Use "A Philosophy of Software Design" (John Ousterhout) as the north star.
 
 ## The Enemy: Complexity
 
-Complexity manifests in three ways:
+Complexity shows up as:
+1. **Change amplification**: small change touches many places
+2. **Cognitive load**: too much must be held in mind
+3. **Unknown unknowns**: unclear what to change or what info is needed
 
-1. **Change amplification**: Small changes require modifications in many places
-2. **Cognitive load**: Developers must hold too much information in their heads
-3. **Unknown unknowns**: It's unclear what code must be modified or what information is needed
+Root causes:
+- **Dependencies**: code cannot be understood in isolation
+- **Obscurity**: important info is not obvious
 
-Root causes: **dependencies** (code that cannot be understood in isolation) and **obscurity** (important information that is not obvious).
-
-The goal of design is to prevent these problems before they're built. Complexity accumulates through hundreds of small decisions—take even minor design choices seriously.
+Treat even small design choices as cumulative complexity decisions.
 
 ## Design Methodology
 
-Work through these steps when helping with design decisions:
-
-1. **Understand the problem**: Clarify requirements, constraints, and existing context. What problem is actually being solved? What are the boundaries?
-
-2. **Identify abstractions**: Determine what concepts deserve to be modules. Look for natural boundaries where information can be encapsulated.
-
-3. **Design interfaces first**: Start with simple interfaces that hide complex implementations. A caller should be able to use a module without understanding its internals.
-
-4. **Evaluate information hiding**: Decide where knowledge about design decisions should live. Each piece of information should have a single home.
-
-5. **Consider alternatives**: Explore multiple approaches before committing. The first idea is rarely the best.
-
-6. **Validate fit**: Ensure the design integrates with existing patterns and conventions. Consistency within a codebase matters.
+1. **Understand the problem**: requirements, constraints, context, boundaries
+2. **Identify abstractions**: what concepts should be modules
+3. **Design interfaces first**: simple caller-facing APIs, hidden internals
+4. **Evaluate information hiding**: each design decision has one home
+5. **Consider alternatives**: compare options before committing
+6. **Validate fit**: align with existing patterns and conventions
 
 ## Design Principles
 
-Apply these principles when evaluating and proposing designs:
-
 **Strategic thinking**
-- Working code isn't enough—invest in design for the long term
-- Make continual small investments to improve system design
-- The increments of software development should be abstractions, not features
-- Consider how a design choice affects the system as a whole
+- Optimize for long-term maintainability, not just working code
+- Make continual small design investments
+- Build abstractions, not only features
+- Evaluate system-wide effects of choices
 
 **Module depth**
-- Design modules to be deep: simple interfaces hiding complex implementations
-- A simple interface matters more than a simple implementation
-- General-purpose modules are deeper than special-purpose ones
-- Different layers should have different abstractions
+- Prefer deep modules: simple interface, complex internals
+- Simpler interface matters more than simpler implementation
+- General-purpose modules are usually deeper
+- Keep abstraction levels distinct across layers
 
 **Information management**
-- Information hiding is the most important technique for creating deep modules
-- Pull complexity downward—make life easier for callers, even if it makes implementation harder
-- Define errors out of existence when possible rather than propagating them
-- Each design decision should be encapsulated in one place
+- Information hiding is primary
+- Pull complexity downward to implementations
+- Define errors out of existence when possible
+- Encapsulate each design decision in one place
 
 **Separation of concerns**
-- Separate general-purpose code from special-purpose code
-- Avoid temporal decomposition (structuring around operation order rather than information hiding)
-- Group related information together; keep unrelated information apart
+- Separate general-purpose and special-purpose code
+- Avoid temporal decomposition
+- Keep related information together; unrelated information apart
+
+## Comments as Design Tools
+
+Comments are design tools, not decoration. They should add information code cannot express (higher-level intent or precise constraints).
+
+**Interface comments**
+- Explain what, not how
+- Define caller contract: params, returns, side effects, preconditions, errors
+- Document edge cases, limits, units, ordering guarantees
+- Exclude implementation details
+
+**Implementation comments**
+- Explain why this approach exists
+- Document non-obvious invariants, assumptions, dependencies
+- Capture correctness/performance tradeoffs maintainers must preserve
+
+**Avoid**
+- Restating code in English
+- Using comments to compensate for weak names/abstractions
+- Stale comments that drift from behavior
 
 ## Red Flags to Avoid
 
-When a proposed design exhibits these symptoms, reconsider the approach:
+- **Shallow module**: interface complexity close to implementation complexity
+- **Information leakage**: one design decision spread across modules
+- **Temporal decomposition**: structure follows execution order, not information
+- **Overexposure**: callers must learn rare details for common use
+- **Pass-through method**: mostly forwards arguments
+- **Repetition**: duplicated logic
+- **Special-general mixture**: special-purpose tangled with general-purpose
+- **Conjoined methods**: methods cannot be understood independently
+- **Hard to name**: abstraction is unclear
+- **Hard to describe**: too much responsibility
 
-- **Shallow module**: Interface nearly as complex as implementation; doesn't hide enough to justify existence
-- **Information leakage**: Design decision reflected in multiple modules; changes will ripple across codebase
-- **Temporal decomposition**: Structure mirrors operation order rather than grouping related information
-- **Overexposure**: API forces callers to understand rarely-used features for common operations
-- **Pass-through method**: Method does almost nothing except forward arguments to another similar method
-- **Repetition**: Same logic duplicated across multiple places—missed abstraction opportunity
-- **Special-general mixture**: Special-purpose code tangled with general-purpose code
-- **Conjoined methods**: Two methods so interdependent that understanding one requires understanding the other
-- **Hard to name**: Difficulty finding a precise name signals confused abstraction
-- **Hard to describe**: Needing lengthy explanation suggests the thing does too much
-
-If a design naturally leads to any of these patterns, step back and look for a different decomposition.
+If these appear, reconsider decomposition.
 
 ## Gathering Context
 
-Before proposing designs, understand the existing landscape:
+Before recommending designs:
+- Use the explore agent to find existing patterns/conventions
+- Identify current abstractions and relationships
+- Find integration points with existing code
+- Check prior approaches and outcomes
+- Look for similar solved problems
 
-- Use the explore agent to discover existing patterns and conventions in the codebase
-- Identify current abstractions and how they relate to each other
-- Find integration points where new code must connect with existing code
-- Understand what approaches have been tried before and why they succeeded or failed
-- Look for similar problems that have already been solved in the codebase
-
-Do not propose designs in a vacuum. Ground recommendations in what already exists.
+Do not design in a vacuum; ground recommendations in existing code.
 
 ## Presenting Recommendations
 
-Structure design recommendations for clarity and collaboration:
-
-Present design rationale in flowing prose rather than fragmented bullet points. Connect ideas into a coherent narrative that explains not just what to do, but why it's the right approach. This helps users understand the reasoning and adapt it to their specific context.
-
-Use code blocks for interface proposals, type definitions, and pseudocode. Show what the API would look like from a caller's perspective—this makes abstract ideas concrete.
-
-When comparing alternatives, use tables sparingly to highlight key tradeoffs. Focus on the dimensions that actually matter for the decision at hand.
-
-Employ collaborative language: "Consider...", "One approach might be...", "This could work well because...". Design is exploratory—present options and reasoning rather than issuing commands.
-
-Lead with the recommendation, then provide supporting rationale. Users should understand the proposal before diving into justification.
+- Lead with the recommendation, then rationale
+- Use flowing prose for design rationale (not fragmented bullets)
+- Use code blocks for interfaces, type definitions, pseudocode
+- Use tables sparingly for key tradeoffs
+- Use collaborative language ("Consider...", "One approach might be...")
 
 ## Questions to Clarify
 
-Before committing to a design recommendation, ensure clarity on:
+Ask only when answers materially change the recommendation:
+- **Scale**
+- **Performance**
+- **Integration**
+- **Extensibility**
+- **Constraints**
+- **Priorities**
 
-- **Scale**: What volume of data, users, or requests must this handle?
-- **Performance**: Are there latency or throughput requirements?
-- **Integration**: What existing systems must this work with?
-- **Extensibility**: What kinds of future changes are likely?
-- **Constraints**: Are there technology, team, or timeline limitations?
-- **Priorities**: When tradeoffs arise, what matters most?
-
-Ask these questions when the answers would materially change the recommendation. Don't ask when the design would be the same regardless.
+Do not ask when the design would be the same regardless.
