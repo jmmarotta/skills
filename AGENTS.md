@@ -2,27 +2,23 @@
 
 This repository is a lightweight collection of agent skills and helper scripts.
 There is no formal build system; most work is editing Markdown or running a
-small set of Python utilities in `skills/skill-creator/scripts/`.
+small set of Bun utilities in `skills/skill-creator/scripts/`.
 
 ## Commands (Build/Lint/Test)
 
 ### Baseline assumptions
-- Python 3 is available on PATH (`python3`).
+- Bun is available on PATH (`bun`).
 - No package manager config is present (no `package.json`, `pyproject.toml`, etc.).
 - There is no repo-wide lint or test runner configured.
 
 ### Validation (closest thing to tests)
-- No validation command is configured.
-
-### Packaging
-- Package a skill to a `.skill` zip:
-  - `python3 skills/skill-creator/scripts/package_skill.py <path/to/skill> [output-dir]`
-  - Example: `python3 skills/skill-creator/scripts/package_skill.py skills/code-review ./dist`
+- Validate a skill:
+  - `bun skills/skill-creator/scripts/quick_validate.ts <path/to/skill>`
 
 ### Initialize a new skill
 - Create a new skill template:
-  - `python3 skills/skill-creator/scripts/init_skill.py <skill-name> --path <path>`
-  - Example: `python3 skills/skill-creator/scripts/init_skill.py my-new-skill --path skills/`
+  - `bun skills/skill-creator/scripts/init_skill.ts <skill-name> --path <path>`
+  - Example: `bun skills/skill-creator/scripts/init_skill.ts my-new-skill --path skills/`
 
 ### Linting
 - No linter is configured. Do not invent commands.
@@ -42,9 +38,8 @@ small set of Python utilities in `skills/skill-creator/scripts/`.
 - Optional subfolders: `scripts/`, `references/`, `assets/`.
 
 ### Skill creator utilities
-- `skills/skill-creator/scripts/quick_validate.py` validates `SKILL.md` frontmatter.
-- `skills/skill-creator/scripts/package_skill.py` packages a skill to `.skill`.
-- `skills/skill-creator/scripts/init_skill.py` generates a new skill template.
+- `skills/skill-creator/scripts/quick_validate.ts` validates `SKILL.md` frontmatter.
+- `skills/skill-creator/scripts/init_skill.ts` generates a new skill template.
 
 ## Code Style Guidelines
 
@@ -53,48 +48,45 @@ small set of Python utilities in `skills/skill-creator/scripts/`.
 - Keep scripts small and explicit; avoid over-abstraction.
 - Use clear, intention-revealing names over cleverness.
 
-### Python version and runtime
-- Target Python 3 (scripts use `#!/usr/bin/env python3`).
-- Use standard library modules where possible.
+### TypeScript runtime
+- Target Bun (scripts use `#!/usr/bin/env bun`).
+- Use Bun and Node standard library modules where possible.
 
 ### Imports
-- Standard library imports first, then third-party, then local.
+- Node and Bun imports first, then local.
 - One import per line.
-- Prefer `from pathlib import Path` over `os.path`.
+- Prefer `node:path` helpers over manual path concatenation.
 - Avoid unused imports.
 
 Example ordering:
-```python
-import sys
-import zipfile
-from pathlib import Path
+```ts
+import { existsSync, readFileSync } from "node:fs";
+import { join, resolve } from "node:path";
 
-import yaml
-
-from quick_validate import validate_skill
+import { validateSkill } from "./quick_validate";
 ```
 
 ### Formatting
-- Use 4-space indentation.
+- Use 2-space indentation.
 - Keep line length reasonable (~100 chars); wrap long strings if needed.
 - Use blank lines between top-level functions.
-- Use docstrings for modules and public functions.
+- Use concise comments only when behavior is non-obvious.
 
 ### Naming conventions
-- Functions and variables: `snake_case`.
+- Functions and variables: `camelCase`.
 - Constants: `UPPER_SNAKE_CASE`.
 - Classes (if introduced): `PascalCase`.
 - Skill identifiers: `hyphen-case` (lowercase letters, digits, hyphens).
 
 ### Paths and files
-- Use `Path` for filesystem work.
-- Avoid string concatenation for paths; use `/` operator.
-- Always resolve user-provided paths with `Path(...).resolve()`.
+- Use `node:path` for filesystem paths.
+- Avoid string concatenation for paths; use `join` or `resolve`.
+- Always resolve user-provided paths with `resolve(...)`.
 
 ### Error handling
 - Prefer early returns with clear user-facing messages.
-- Use `try/except` around filesystem operations.
-- Return `None` or `False` to signal failure; avoid raising new exceptions
+- Use `try/catch` around filesystem operations.
+- Return `null` or `false` to signal failure; avoid throwing new exceptions
   unless required.
 
 ### CLI behavior
@@ -103,7 +95,7 @@ from quick_validate import validate_skill
 - Use concise, user-readable output.
 
 ### Strings and output
-- Prefer f-strings for interpolation.
+- Prefer template literals for interpolation.
 - Keep messages short; include context (file path, skill name).
 
 ### Data validation
