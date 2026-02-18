@@ -27,7 +27,9 @@ Treat even small design choices as cumulative complexity decisions.
 3. **Design interfaces first**: simple caller-facing APIs, hidden internals
 4. **Evaluate information hiding**: each design decision has one home
 5. **Consider alternatives**: compare options before committing
-6. **Validate fit**: align with existing patterns and conventions
+6. **Plan a verification loop**: define automated and manual checks before implementation
+7. **Plan failure and rollback**: define failure detection, blast radius, and recovery path
+8. **Validate fit**: align with existing patterns and conventions
 
 ## Design Principles
 
@@ -53,6 +55,53 @@ Treat even small design choices as cumulative complexity decisions.
 - Separate general-purpose and special-purpose code
 - Avoid temporal decomposition
 - Keep related information together; unrelated information apart
+
+## Testing and Closed-Loop Verification
+
+Use a closed loop: every design should include how correctness and user-visible
+behavior will be verified.
+
+**Coverage strategy**
+- Prefer automated tests at the lowest effective level first.
+- Add **unit tests** for pure logic and edge conditions.
+- Add **integration tests** for module boundaries, data flows, and external
+  dependencies.
+- Add **end-to-end tests** for critical user journeys where system interactions
+  matter.
+- Add **manual smoke tests** wherever automation is impractical or too costly,
+  based on agent judgment.
+
+**Visual and UX checks**
+- For UI changes, verify visual correctness in realistic environments
+  (desktop/mobile breakpoints, loading/error/empty states, and interaction
+  states).
+- Capture the smallest repeatable visual check that can later be automated.
+
+**Verification evidence**
+- Record what was run, what was manually checked, and any remaining unverified
+  risk.
+- If closed-loop verification is not feasible, state why and define the
+  follow-up needed.
+
+## Performance Considerations
+
+- Prefer lower time-complexity solutions for hot paths when practical
+  (`O(n)`/`O(n log n)` over `O(n^2+)`).
+- Consider space complexity and allocation behavior alongside runtime.
+- State workload assumptions (data volume, request rate, concurrency) and
+  design for expected scale.
+- Measure before optimizing: establish a baseline, identify bottlenecks, and
+  verify post-change impact.
+- Avoid common regression patterns (repeated full scans, N+1 queries,
+  unnecessary network round-trips, duplicate computation).
+- Document intentional tradeoffs when choosing readability or flexibility over
+  peak performance.
+
+## Coding Style
+
+- Prefer straightforward inline flow for short methods; extract helpers only when reused or when they materially clarify intent.
+- Keep helpers single-purpose and side-effect free where possible.
+- Use clear, direct variable names; introduce additional variables only when they materially improve readability, avoid shadowing/conflicts, or provide a measurable performance benefit (for example, caching expensive repeated computations).
 
 ## Comments as Design Tools
 
@@ -100,22 +149,17 @@ Before recommending designs:
 
 Do not design in a vacuum; ground recommendations in existing code.
 
-## Presenting Recommendations
-
-- Lead with the recommendation, then rationale
-- Use flowing prose for design rationale (not fragmented bullets)
-- Use code blocks for interfaces, type definitions, pseudocode
-- Use tables sparingly for key tradeoffs
-- Use collaborative language ("Consider...", "One approach might be...")
-
 ## Questions to Clarify
 
 Ask only when answers materially change the recommendation:
-- **Scale**
-- **Performance**
-- **Integration**
-- **Extensibility**
-- **Constraints**
-- **Priorities**
+- **Scale and load**: data volume, request rate, concurrency, peak behavior
+- **Performance budgets**: latency, throughput, memory, startup/render targets
+- **Integration boundaries**: external systems, compatibility constraints,
+  failure modes
+- **Extensibility horizon**: expected future variation and likely change axes
+- **Operational constraints**: deployment limits, observability,
+  security/compliance needs
+- **Verification and rollback**: confidence level, test depth, rollback
+  requirements
 
 Do not ask when the design would be the same regardless.
