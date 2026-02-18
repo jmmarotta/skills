@@ -6,14 +6,8 @@ description: Review code for correctness, integration risk, and design quality i
 # Code Review
 
 Use this skill to review diffs, commits, and pull requests.
-Load `software-design` first and treat it as the source of truth for
-complexity, abstractions, comments, testing and closed-loop verification,
-rollback planning, and performance principles. This skill focuses on review
-mechanics: scope, evidence, prioritization, and actionable findings.
-
-## Prerequisite
-
-- Load `software-design` before using this skill.
+Load `software-design` first and treat it as the source of truth for complexity, abstractions, comments, testing and closed-loop verification, rollback planning, and performance principles.
+This skill focuses on review mechanics: scope, evidence, prioritization, and actionable findings.
 
 ## Review Focus
 
@@ -52,13 +46,55 @@ callees, types, and tests.
 
 ## Reporting Findings
 
-For each issue, include location (`file:line` or symbol), severity,
-confidence, concrete failure scenario or design risk, impact category
-(correctness, complexity, performance, security, or operations), and fix
-direction when straightforward.
+Use a structured format so findings are easy to reference in follow-up discussion:
 
-Order findings by priority: blocking issues, non-blocking improvements, then
-open questions.
+1. **Review Header**: scan-friendly metadata for the review.
+2. **Findings Index**: numbered one-line entries sorted by priority.
+3. **Detailed Findings**: one subsection per finding with full context.
+4. **Open Questions**: separate numbered list for unresolved questions.
+
+`Review Header` fields:
+
+- Base
+- Head
+- Scope
+- Verdict (`approve`, `approve-with-notes`, or `changes-requested`)
+- Severity counts (`P0:<n> P1:<n> P2:<n> P3:<n>`)
+
+Assign a stable ID to every finding (`F01`, `F02`, ...) and every question
+(`Q01`, `Q02`, ...). Reuse the same ID in all follow-up references.
+
+`Findings Index` entry format:
+
+`<number>. [<priority>][<confidence>] <id> - <short title> - <file:line> (<impact>)`
+
+`Detailed Findings` heading format:
+
+`### <id> - <short title>`
+
+Within each detailed finding, use this exact field order:
+
+- Severity (`P0`, `P1`, `P2`, or `P3`)
+- Confidence (`High`, `Medium`, or `Low`)
+- Location (`file:line` and symbol when possible)
+- Impact (`correctness`, `complexity`, `performance`, `security`, or `operations`)
+- Risk (concrete failure scenario or design risk)
+- Evidence (code path, caller, type, test, or behavior proof)
+- Fix direction (when straightforward)
+
+Additional rules:
+
+- Use one issue per root cause; do not duplicate findings for the same cause.
+- If one finding affects multiple locations, keep one ID and add `Also affects`.
+- Use one issue per finding; split mixed concerns into separate IDs.
+- Prefer `file:line` plus symbol for stable references.
+- Use numbered lists, not Markdown tables, for terminal readability.
+- Order by priority: blocking issues, non-blocking improvements, then open questions.
+- Keep open questions in a separate `Open Questions` section using `Qxx` IDs,
+  and include `Blocking: yes` or `Blocking: no` for each question.
+- If there are no findings, write `Findings Index: None` and
+  `Detailed Findings: None`.
+- If there are no open questions, write `Open Questions: None`.
 
 ## Applying Judgment
 
