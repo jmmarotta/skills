@@ -3,6 +3,7 @@
 Personal collection of agent skills, templates, and helper scripts used to improve day-to-day software development workflows.
 
 ## Skills
+- `agent-instruction-writing`: Write compact, high-signal instructions for `AGENTS.md`, `SKILL.md`, and prompt updates.
 - `code-review`: Review code for correctness, integration risk, and design quality.
 - `code-simplify`: Refactor recent changes for clarity and maintainability.
 - `frontend-design`: Build polished, production-grade UI components and layouts.
