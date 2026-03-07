@@ -1,17 +1,18 @@
 ---
 name: code-review
-description: Review code for correctness, integration risk, and design quality in code changes. Always load this skill after software-design; this skill is a review-specific overlay for diffs, issue triage, and actionable findings.
+description: Review code for correctness, integration risk, and design quality in code changes. Load this skill after software-planning for design judgment, and add software-implementation when code shape, verification depth, or maintainability details materially affect the review.
 ---
 
 # Code Review
 
 Use this skill to review diffs, commits, and pull requests.
-Load `software-design` first and treat it as the source of truth for complexity, abstractions, comments, testing and closed-loop verification, rollback planning, and performance principles.
+Load `software-planning` first and treat it as the source of truth for complexity, abstractions, interface quality, verification depth, rollback planning, and performance principles.
+Load `software-implementation` when review quality depends on coding-time choices such as code shape, local validation loops, comment judgment, or refactor heuristics.
 This skill focuses on review mechanics: scope, evidence, prioritization, and actionable findings.
 
 ## Review Focus
 
-- Review only the change set unless surrounding code directly affects
+- Unless specified otherwise, review only the change set unless surrounding code directly affects
   correctness, design, or operational risk.
 - Check correctness and security: logic errors, edge conditions, race
   conditions, broken error handling, and data exposure.
