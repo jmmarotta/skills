@@ -1,6 +1,6 @@
 ---
 name: repo-bootstrap
-description: Bootstrap and standardize repositories with an interview-first workflow, capability-first organization, stdlib-first dependencies, and closed-loop verification. Use this skill for any new repository bootstrap or rebaseline task, including baseline tooling, AGENTS.md creation, and automated plus manual validation planning.
+description: Use for new-repository bootstrap or whole-repo rebaseline work, including baseline tooling, AGENTS setup, dependency policy, and validation planning.
 ---
 
 # Repo Bootstrap

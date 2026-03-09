@@ -1,6 +1,6 @@
 ---
 name: software-design
-description: Apply A Philosophy of Software Design as an explicit lens for software work.
+description: Apply A Philosophy of Software Design when evaluating or shaping APIs, module boundaries, abstractions, invariants, information hiding, and complexity tradeoffs in software work.
 ---
 
 # Software Design

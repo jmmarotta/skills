@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: Review code for correctness, integration risk, and design quality in code changes. Load this skill after software-planning for design judgment, and add software-implementation when code shape, verification depth, or maintainability details materially affect the review.
+description: Use when reviewing code changes for correctness, regressions, integration risk, and design quality. Consult planning or implementation skills as needed for design judgment or verification depth.
 ---
 
 # Code Review

@@ -1,6 +1,6 @@
 ---
 name: websearch
-description: Use when a task needs web search to answer correctly, especially for current information, recent changes, release notes, pricing, news, or external documentation not present in the repo.
+description: Use when a task needs authoritative external documentation, current information, release notes, pricing, news, or web search to answer correctly.
 ---
 
 # Websearch
