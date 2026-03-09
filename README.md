@@ -11,6 +11,7 @@ Personal collection of agent skills, templates, and helper scripts used to impro
 - `research-grounding`: Do evidence-backed research with citation, grounding, and completeness rules.
 - `repo-bootstrap`: Bootstrap or rebaseline repositories with practical defaults.
 - `skill-creator`: Create, validate, and refine new skills.
+- `software-design`: Apply A Philosophy of Software Design as an explicit design lens for module boundaries, interfaces, information hiding, comments, and maintainability tradeoffs.
 - `software-implementation`: Implement planned changes with local verification loops.
 - `software-planning`: Plan non-trivial software changes, interfaces, and verification.
 - `websearch`: Gather web context and synthesize search findings.
