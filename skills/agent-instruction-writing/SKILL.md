@@ -1,6 +1,6 @@
 ---
 name: agent-instruction-writing
-description: Use whenever touching `AGENTS.md`, `SKILL.md`, and system prompts for agents.
+description: Use when editing `AGENTS.md`, `SKILL.md`, or agent system prompts.
 ---
 
 # Agent Instruction Writing
@@ -62,6 +62,7 @@ Default to neutral prompts that do not force outcomes.
 - Keep the body procedural; do not spend body space on trigger detection.
 - Use progressive disclosure: core workflow in `SKILL.md`, heavy detail in `references/`.
 - Include command snippets only when deterministic and reusable.
+- Use this skill for instruction text quality; use `skill-creator` for package structure, bundled resources, initialization, and validation.
 
 ### System Prompts
 

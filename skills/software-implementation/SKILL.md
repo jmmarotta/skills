@@ -1,6 +1,6 @@
 ---
 name: software-implementation
-description: Implement planned software changes with strong local verification loops. Use after a plan or spec exists, or for contained coding tasks such as refactors, debugging, and finishing non-trivial edits without reopening design work.
+description: Implement planned software changes with local verification loops. Use after a plan or spec exists, or for debugging, behavior-preserving cleanup, and contained non-trivial edits that do not reopen design work.
 ---
 
 # Software Implementation
@@ -42,6 +42,16 @@ shows the plan is wrong, incomplete, or no longer fits the code you found.
 - Extract by default when repeated logic, mixed abstraction levels, or hidden
   invariants make the code harder to understand.
 - Prefer names that explain intent over comments that restate code.
+
+## Behavior-Preserving Cleanup
+
+- Treat this skill as the default home for simplification and cleanup work.
+- Limit cleanup to recently touched code unless the user requests a broader pass.
+- Preserve externally visible behavior, contracts, and test expectations.
+- Remove shallow abstractions, redundant comments, repeated conditionals, and
+  needless nesting when doing so makes the code easier to read.
+- Prefer explicit code over dense cleverness, but do not turn cleanup into a
+  repo-wide style rewrite.
 
 ## Performance Footguns
 

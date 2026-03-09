@@ -1,6 +1,6 @@
 ---
 name: software-planning
-description: Plan non-trivial software changes before coding. Use when framing requirements, evaluating approaches, designing APIs or module boundaries, writing specs, planning verification, or choosing rollout and rollback strategies.
+description: Plan non-trivial software changes before coding. Use for requirements framing, approach selection, API or module design, spec writing, verification planning, and rollout or rollback planning.
 ---
 
 # Software Planning

@@ -1,6 +1,6 @@
 ---
 name: websearch
-description: Use when a task needs authoritative external documentation, current information, release notes, pricing, news, or web search to answer correctly.
+description: Use when a task needs authoritative external docs, current information, release notes, pricing, news, or web search to answer correctly.
 ---
 
 # Websearch

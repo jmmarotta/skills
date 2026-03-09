@@ -1,6 +1,6 @@
 ---
 name: research-grounding
-description: Conduct disciplined research and evidence-backed synthesis using retrieved sources only. Use when tasks require current information, multi-source synthesis, citations, conflict resolution, review memos, or answers where unsupported claims would be risky. Pair with `websearch` when external retrieval is needed.
+description: Conduct evidence-backed research using retrieved sources only. Use for current information, multi-source synthesis, citations, conflict resolution, review memos, or answers where unsupported claims are risky. Pair with `websearch` when external retrieval is needed.
 ---
 
 # Research Grounding

@@ -1,6 +1,6 @@
 ---
 name: software-design
-description: Apply A Philosophy of Software Design when evaluating or shaping APIs, module boundaries, abstractions, invariants, information hiding, and complexity tradeoffs in software work.
+description: Apply A Philosophy of Software Design when evaluating or shaping APIs, module boundaries, abstractions, invariants, information hiding, and complexity tradeoffs.
 ---
 
 # Software Design
@@ -8,8 +8,9 @@ description: Apply A Philosophy of Software Design when evaluating or shaping AP
 Use this skill as the APOSD judgment layer.
 
 - `software-planning` defines the planning workflow and decision record.
-- `software-implementation` defines the implementation workflow and decision record.
-- `software-design` sharpens the design judgment used inside that workflow.
+- `software-implementation` defines the implementation workflow and local verification loop.
+- `code-review` defines review scope, evidence, and reporting.
+- `software-design` sharpens the design judgment used inside those workflows.
 
 ## Core Lens
 

@@ -1,6 +1,6 @@
 ---
 name: repo-bootstrap
-description: Use for new-repository bootstrap or whole-repo rebaseline work, including baseline tooling, AGENTS setup, dependency policy, and validation planning.
+description: Use for new-repo bootstrap or whole-repo rebaseline, especially when choosing topology, dependency policy, baseline tooling, `AGENTS.md`, and verification strategy.
 ---
 
 # Repo Bootstrap
@@ -10,7 +10,8 @@ and reliable validation.
 
 ## Non-Negotiables
 
-- Interview the user before scaffolding.
+- Resolve foundational decisions before scaffolding.
+- Use `references/interview-checklist.md` when repository goals, language profile, operational constraints, or verification expectations are unresolved.
 - Prioritize technology and dependency decisions over file scaffolding.
 - Keep related artifacts together by capability, including source, infrastructure, docs, and tests.
 - Default to standard library first in every language profile.
@@ -22,7 +23,7 @@ and reliable validation.
 
 ## Workflow
 
-1. Interview the user with `references/interview-checklist.md`.
+1. Gather missing goals and constraints. Use `references/interview-checklist.md` when key decisions are unresolved.
 2. Select language profile defaults from `references/language-profiles.md`.
 3. Choose repository topology and co-locate by capability.
 4. Select dependencies with the stdlib-first acceptance rubric.

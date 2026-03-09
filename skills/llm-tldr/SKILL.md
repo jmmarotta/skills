@@ -1,6 +1,6 @@
 ---
 name: llm-tldr
-description: Use when `llm-tldr` / `tldr` is available and a task needs token-efficient code understanding; warm or inspect a codebase, get context for a symbol, run semantic code search, trace callers or change impact, inspect CFG/DFG/slices, check daemon state, or configure `tldr-mcp`.
+description: Use when `llm-tldr` or `tldr` is available and a task needs token-efficient code understanding, semantic search, symbol context, change-impact analysis, CFG/DFG or slice inspection, daemon checks, or `tldr-mcp` setup.
 ---
 
 # llm-tldr

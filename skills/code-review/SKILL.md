@@ -1,13 +1,14 @@
 ---
 name: code-review
-description: Use when reviewing code changes for correctness, regressions, integration risk, and design quality. Consult planning or implementation skills as needed for design judgment or verification depth.
+description: Review diffs, commits, or pull requests for correctness, regressions, integration risk, and design quality. Load `software-design` for design judgment, `software-implementation` for code shape or verification depth, and `software-planning` only when planning artifacts matter.
 ---
 
 # Code Review
 
 Use this skill to review diffs, commits, and pull requests.
-Load `software-planning` first and treat it as the source of truth for complexity, abstractions, interface quality, verification depth, rollback planning, and performance principles.
-Load `software-implementation` when review quality depends on coding-time choices such as code shape, local validation loops, comment judgment, or refactor heuristics.
+Load `software-design` when review quality depends on abstraction quality, ownership boundaries, interface fit, or long-term complexity judgment.
+Load `software-implementation` when review quality depends on code shape, local validation loops, comment judgment, or refactor heuristics.
+Consult `software-planning` only when original requirements, rollout assumptions, interface intent, or planned verification materially affect the review.
 This skill focuses on review mechanics: scope, evidence, prioritization, and actionable findings.
 
 ## Review Focus
