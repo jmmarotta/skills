@@ -1,6 +1,6 @@
 ---
 name: agent-instruction-writing
-description: Write and refine `AGENTS.md`, `SKILL.md`, and system prompts for agents. Use when defining triggers, defaults, escalation rules, tool boundaries, output constraints, and completion contracts with minimal context and no contradictions.
+description: Use whenever touching `AGENTS.md`, `SKILL.md`, and system prompts for agents.
 ---
 
 # Agent Instruction Writing
