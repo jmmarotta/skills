@@ -48,6 +48,8 @@ unknown unknowns before implementation starts.
 
 - Prefer deep modules with simple caller-facing interfaces.
 - Hide information so each design decision has one owner.
+- Centralize sequencing-sensitive state changes in one controlled place rather
+  than scattering partial updates across callers.
 - Keep hub or orchestrator modules focused on wiring and composition.
 - Keep abstraction levels clean within a module.
 - Separate general-purpose mechanisms from special-purpose policy.
