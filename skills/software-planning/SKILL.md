@@ -11,43 +11,48 @@ unknown unknowns before implementation starts.
 
 ## Workflow
 
-1. Inspect the current system first. Find the existing abstractions, ownership
+### Phase 1: Purpose, Interface, and Ownership
+
+1. Inspect the current system first. Find the existing abstractions,
    boundaries, conventions, and integration points before proposing changes.
-2. Frame the problem. Make requirements, constraints, failure modes, and
-   success criteria explicit.
-3. Design interfaces and ownership before internals. Give each important
-   decision one clear home.
-4. Compare viable approaches when tradeoffs materially matter. Recommend one
-   approach and explain why it wins.
-5. Define verification before coding. Name the automated and manual checks that
-   will prove the change is done.
-6. Define rollout and rollback expectations for risky changes. Call out blast
+2. Frame the problem. State the purpose of the module or change clearly, and
+   make requirements, constraints, failure modes, and success criteria
+   explicit.
+3. Draft the high-level design: interfaces, module boundaries, and ownership.
+4. Write interface comments early so caller-facing contracts and guarantees are
+   explicit.
+5. Prefer deep modules and simple caller-facing interfaces.
+6. Use information hiding so each important design decision has one clear
+   owner.
+7. Compare viable alternatives when the choice materially affects complexity;
+   design it twice when useful.
+8. Ask for user review on the proposed purpose, interfaces, ownership, and
+   high-level design before refining internals.
+
+### Phase 2: Internals, Invariants, and Verification
+
+1. Refine the chosen design into internal structure and implementation
+   approach.
+2. Define invariants, state ownership, error behavior, and compatibility
+   expectations.
+3. Keep hub or orchestrator modules focused on wiring and composition.
+4. Define verification before coding: automated checks, regression coverage,
+   manual smoke checks, and residual risk.
+5. Define rollout and rollback expectations for risky changes. Call out blast
    radius, failure detection, and recovery path.
-7. Stop when the plan is specific enough that implementation can proceed
-   without reopening core design questions.
-
-## Boundary Drift Protocol
-
-Load `references/boundary-drift-protocol.md` before implementation when any of
-the following is true:
-
-- The change touches 2 or more concerns.
-- The change touches a hub or orchestrator module.
-- The change spans more than 2 files or introduces persisted state, retries,
-  or caller-facing contracts.
-- The change affects discovery or control surfaces such as help, settings,
-  navigation, palettes, or catalogs.
-
-If triggered, treat the reference as mandatory and produce the required
-Boundary Plan before coding.
+6. Bring the plan to the point where implementation can proceed without
+   reopening core design questions.
+7. Ask for user review on the complete plan before implementation begins.
 
 ## Planning Principles
 
 - Prefer deep modules with simple caller-facing interfaces.
 - Hide information so each design decision has one owner.
+- Keep hub or orchestrator modules focused on wiring and composition.
 - Keep abstraction levels clean within a module.
 - Separate general-purpose mechanisms from special-purpose policy.
 - Challenge temporal decomposition when it spreads knowledge across steps.
+- Enforce invariants in module APIs, not caller convention.
 
 ## Verification Planning
 
@@ -77,3 +82,4 @@ Do not ask when the design would be the same either way.
 - Invariants and failure handling are named.
 - Verification is defined.
 - Rollout or rollback expectations are clear when risk warrants them.
+- The user has reviewed the complete plan.
