@@ -95,6 +95,22 @@ shows the plan is wrong, incomplete, or no longer fits the code you found.
   invariants make the code harder to understand.
 - Prefer names that explain intent over comments that restate code.
 
+## Sequencing and Inlining Judgment
+
+- Use inlining to reduce obscurity, not as a blanket style rule.
+- If a helper is called from one place and mainly mutates ambient state,
+  consider inlining it so execution order, side effects, and dependencies stay
+  visible.
+- Keep pure or nearly pure logic as functions when possible. Prefer making
+  helpers more functional with explicit inputs and outputs over spreading
+  hidden state through the call graph.
+- Centralize sequencing-sensitive state changes in one controlled place rather
+  than calling partial update helpers from many places.
+- Prefer consistent execution paths when conditional skipping risks stale
+  state, hidden latency, or missed updates.
+- Do not inline when doing so weakens module boundaries, duplicates logic, or
+  hides a deeper abstraction that should exist.
+
 ## Behavior-Preserving Cleanup
 
 - Treat this skill as the default home for simplification and cleanup work.
