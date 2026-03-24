@@ -1,11 +1,11 @@
 ---
-name: go-idoims
-description: Use for writing, reviewing, refactoring, or structuring Go code with Dave Cheney's Practical Go recommendations around simplicity, readability, naming, package design, API design, error handling, concurrency, and testing.
+name: go-practices
+description: Use for writing, reviewing, refactoring, or structuring Go code with curated Go practices and guidance around simplicity, readability, naming, package design, API design, error handling, concurrency, and testing. Current references are centered on Dave Cheney's Practical Go recommendations.
 ---
 
-# Go Idoims
+# Go Practices
 
-Apply Dave Cheney's maintainability-first Go guidance.
+Apply maintainability-first Go guidance, starting with Dave Cheney's recommendations.
 
 ## Core Lens
 
