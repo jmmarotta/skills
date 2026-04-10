@@ -5,14 +5,15 @@ description: Use when a task needs authoritative external docs, current informat
 
 # Websearch
 
-Use `codex exec --search` as the default interface for scripted web lookup.
+Use `codex --search exec` as the default interface for scripted web lookup.
+`--search` is a top-level Codex flag, so it must appear before `exec`.
 
 ## Default Pattern
 
 Prefer stdin so prompts can be multiline and shell-safe.
 
 ```bash
-cat <<'EOF' | codex exec --search -
+cat <<'EOF' | codex --search exec -
 Use web search to answer the question below.
 Prefer recent and primary sources when possible.
 Return:
@@ -44,13 +45,13 @@ EOF
 Quick lookup:
 
 ```bash
-printf '%s\n' 'Find the latest Bun release notes and link the official changelog.' | codex exec --search -
+printf '%s\n' 'Find the latest Bun release notes and link the official changelog.' | codex --search exec -
 ```
 
 Save the final answer for later parsing:
 
 ```bash
-cat <<'EOF' | codex exec --search -o tmp/searches/websearch.txt -
+cat <<'EOF' | codex --search exec -o tmp/searches/websearch.txt -
 Compare the current pricing pages for Vercel and Netlify.
 Return a compact table and include source links.
 EOF
