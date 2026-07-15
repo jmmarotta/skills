@@ -1,67 +1,52 @@
 ---
 name: bonsai-subagent
-description: Spawn subagents with the bonsai coding agent CLI when no task tool or subagent capability is available. Use for delegating self-contained work such as parallel codebase exploration, research, review, or isolated tasks that would otherwise bloat the parent context.
+description: Spawn subagents with the bonsai coding-agent CLI when no task tool or native subagent is available. Use for self-contained exploration, research, review, parallel investigations, or isolated work that would bloat the parent context.
 ---
 
 # Bonsai Subagent
 
-Spawn a headless subagent run with `bonsai -p`. Use this only when no native
-`task` tool or subagent capability is available.
+Run a headless subagent with `bonsai -p` only when no native `task` tool or
+subagent capability exists. Delegate exploration or research that would flood
+the parent context, independent parallel investigations, or isolated tasks with
+clear expected output. The subagent starts cold and sees only its prompt, so do
+not delegate work that needs context from the parent conversation.
 
-## When to Use
-
-- Delegating exploration or research that would flood the parent context
-- Running several independent investigations in parallel
-- Isolated, self-contained tasks with a clear expected output
-
-Do not delegate work that needs the parent conversation's context; the
-subagent starts cold and sees only the prompt you give it.
-
-## Spawning
-
-Always pass `--no-session` unless the user asks for a resumable session.
-The default agent comes from bonsai config and is expected to be
-`codex` / `gpt-5.5`; do not pass `--provider` or `--model` unless the user
-asks for a different agent.
+## Run
 
 ```sh
-bonsai -p --no-session "<prompt>"
+bonsai -p "<prompt>"
 ```
 
-Stdout is the subagent's final answer text.
+Keep the default session-saving behavior. Use `--no-session` only when directed.
+Use the default agent from bonsai config, expected to be `codex` / `gpt-5.5`.
+Pass `--provider` or `--model` only when the user asks for a different agent.
+Use `--root <dir>` to run elsewhere; the current directory is the default.
 
-Options:
+## Output
 
-- `--root <dir>`: run the subagent in another directory (defaults to cwd)
-- `--mode json`: stream the full event stream as JSONL (session header,
-  tool calls, token usage) when debugging; the first line reports the
-  resolved `provider`/`model` if you need to confirm which agent ran
+Use default text mode for normal delegation. Stdout includes completed assistant
+messages and assistant text before or between tool calls, but excludes tool
+events and hidden thinking. Notices and errors go to stderr.
+
+Use `--mode json` only to debug or inspect session metadata, the resolved
+provider and model, tool events, thinking snapshots, or token usage. It writes
+the full event stream as JSONL.
 
 ## Parallel Runs
 
-Spawn independent subagents in the background and wait:
-
-```sh
-bonsai -p --no-session "<prompt A>" > /tmp/a.txt &
-bonsai -p --no-session "<prompt B>" > /tmp/b.txt &
-wait
-cat /tmp/a.txt /tmp/b.txt
-```
+Run each subagent in its own Bash tool call. Launch independent calls in
+parallel to separate their output, status, and timeout handling. Use background
+processes in one Bash call only if the tool runner cannot run calls in parallel.
+Redirect each process to a separate file.
 
 ## Writing the Prompt
 
-The subagent has no context from your conversation. The prompt must be
-self-contained:
-
-- State the goal, the working directory, and any relevant file paths
-- Say whether the subagent may edit files or must stay read-only
-- Specify the exact output format you want back
-- End with: "Respond only with your final report." so the answer stays
-  clean and parseable
+Make the prompt self-contained. State the goal, working directory, relevant file
+paths, whether it may edit files, and the exact output format. End with "Respond
+only with your final report." for clean, parseable output.
 
 ## Failure Modes
 
-- Nonzero exit with a message on stderr: report it, do not retry blindly
+- Nonzero exit with stderr: report it; do not retry blindly
 - `error: unexpected argument '-p'`: the installed bonsai binary is stale
-  and needs rebuilding (`cargo install --path crates/bonsai` in the bonsai
-  repo)
+  and needs rebuilding with `cargo install --path crates/bonsai` in its repo
